@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="@layout/activity_room">
+
+    <!-- <group android:checkableBehavior="single">
+
+       <item android:id="@+id/allinboxes"
+             android:title="ALL LABLES"
+             > -->
+    <!--  <menu> -->
+
+    <item android:id="@+id/inbox"
+        android:title="Inbox"
+        android:icon="@drawable/ic_baseline_inbox_24" />
+
+    <item android:id="@+id/snoozed"
+        android:title="Snoozed"
+        android:icon="@drawable/ic_baseline_snooze_24"/>
+
+    <item android:id="@+id/drafts"
+        android:title="Drafts"
+        android:icon="@drawable/ic_baseline_drafts_24" />
+
+    <item android:id="@+id/sent"
+        android:title="Sent"
+        android:icon="@drawable/ic_baseline_send_24"/>
+
+    <!--     </menu>
+
+ </group> -->
+
+</menu>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="username"
+    android:id="@+id/username"
+    android:layout_marginTop="30dp">
+
+    </EditText>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="userpassword"
+        android:id="@+id/userpassword"
+        android:layout_below="@+id/username"
+        android:layout_marginTop="10dp">
+
+    </EditText>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userbutton"
+        android:layout_below="@+id/userpassword"
+        android:text="Submit"
+        android:layout_gravity="center">
+
+    </Button>
+
+</LinearLayout>
