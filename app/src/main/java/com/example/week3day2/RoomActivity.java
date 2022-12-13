@@ -1,17 +1,22 @@
 package com.example.week3day2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -29,15 +34,46 @@ public class RoomActivity extends AppCompatActivity implements RoomAdapterListen
 
     FloatingActionButton floatingActionButton;
 
+    AppBarLayout appBarLayout;
+    androidx.appcompat.widget.Toolbar toolbar;
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room);
+        setContentView(R.layout.appbarlayout);
 
         /*username = (EditText) findViewById(R.id.username);
         userpassword = (EditText) findViewById(R.id.userpassword);
         usersubmit = (Button) findViewById(R.id.userbutton);*/
+
+        appBarLayout = (AppBarLayout)findViewById(R.id.appbarlayout);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        roomDatabaseUsers = RoomDatabaseUsers.getInstance(this);
+        roomDAO = roomDatabaseUsers.getDAO();
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+
+        roomAdapter = new RoomAdapter(this, this);
+
+        recyclerView.setAdapter(roomAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        fetchAll();
+
+        ViewGroup.MarginLayoutParams marginLayoutParams =
+                new ViewGroup.MarginLayoutParams(recyclerView.getLayoutParams());
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset == toolbar.getHeight()) {
+                    marginLayoutParams.setMargins(0, 50, 0, 0);
+                    recyclerView.setLayoutParams(marginLayoutParams);
+                }
+            }
+        });
 
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingactionbutton);
 
@@ -68,16 +104,20 @@ public class RoomActivity extends AppCompatActivity implements RoomAdapterListen
             }
         });
 
-        roomDatabaseUsers = RoomDatabaseUsers.getInstance(this);
-        roomDAO = roomDatabaseUsers.getDAO();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
-
-        roomAdapter = new RoomAdapter(this, this);
-
-        recyclerView.setAdapter(roomAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        fetchAll();
+        /*final LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //no items in the RecyclerView
+                if (recyclerView.getAdapter().getItemCount() == 0)
+                    recyclerView.setNestedScrollingEnabled(false);
+                    //if the first and the last item is visible
+                else if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0
+                        && layoutManager.findLastCompletelyVisibleItemPosition() == recyclerView.getAdapter().getItemCount() - 1)
+                    recyclerView.setNestedScrollingEnabled(false);
+                else
+                    recyclerView.setNestedScrollingEnabled(true);}},5);*/
 
         /*usersubmit.setOnClickListener(new View.OnClickListener() {
             @Override
