@@ -42,7 +42,7 @@ public class RoomActivity extends AppCompatActivity implements RoomAdapterListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.appbarlayout);
+        setContentView(R.layout.appbarlayouttest);
 
         /*username = (EditText) findViewById(R.id.username);
         userpassword = (EditText) findViewById(R.id.userpassword);
@@ -62,7 +62,7 @@ public class RoomActivity extends AppCompatActivity implements RoomAdapterListen
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         fetchAll();
 
-        ViewGroup.MarginLayoutParams marginLayoutParams =
+        /*ViewGroup.MarginLayoutParams marginLayoutParams =
                 new ViewGroup.MarginLayoutParams(recyclerView.getLayoutParams());
 
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -73,7 +73,7 @@ public class RoomActivity extends AppCompatActivity implements RoomAdapterListen
                     recyclerView.setLayoutParams(marginLayoutParams);
                 }
             }
-        });
+        });*/
 
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingactionbutton);
 
