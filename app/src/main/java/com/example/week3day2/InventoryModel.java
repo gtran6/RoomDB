@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 
 public class InventoryModel extends MainActivity {
     public String productName, productPrice, productCategory;
-
     public Bitmap image;
     public byte[] photo;
 

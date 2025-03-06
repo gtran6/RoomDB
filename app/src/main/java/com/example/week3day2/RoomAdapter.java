@@ -89,4 +89,9 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
             delete = (ImageView) itemView.findViewById(R.id.delete);
         }
     }
+
+    public void addToSearchList(List<RoomUsers> addToSearchList) {
+        this.userdata = addToSearchList;
+        notifyDataSetChanged();
+    }
 }

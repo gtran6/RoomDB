@@ -4,53 +4,75 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/appbarlayout"
-        android:fitsSystemWindows="true">
+<!--    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">-->
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbarlayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:title="Giang Tran"
-            android:id="@+id/collapsingtoolbar"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:contentScrim="@color/teal_200">
+            android:layout_height="300dp"
+            android:fitsSystemWindows="true">
 
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@drawable/profilepic"
-                android:layout_gravity="center">
-
-            </ImageView>
-
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsingtoolbar"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:layout_collapseMode="pin"
-                android:id="@+id/toolbar">
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/teal_200"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:title="Giang Tran">
 
-            </androidx.appcompat.widget.Toolbar>
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/profilepic">
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+                </ImageView>
 
-    </com.google.android.material.appbar.AppBarLayout>
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    app:layout_collapseMode="pin"
+                    android:layout_gravity="bottom">
+
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+    <!--</RelativeLayout>-->
+
+    <SearchView
+        android:id="@+id/searchview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/collapsingtoolbar"
+        android:layout_marginTop="310dp"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search something..."
+        app:layout_anchor="@id/toolbar"
+        app:layout_anchorGravity="bottom">
+
+    </SearchView>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        android:layout_margin="20dp">
+        android:layout_marginTop="60dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/recycler">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/searchview">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.core.widget.NestedScrollView>
 

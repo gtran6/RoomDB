@@ -14,11 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoomActivity extends AppCompatActivity implements RoomAdapterListener {
@@ -37,22 +39,31 @@ public class RoomActivity extends AppCompatActivity implements RoomAdapterListen
     AppBarLayout appBarLayout;
     androidx.appcompat.widget.Toolbar toolbar;
 
+    SearchView searchview;
+
+    List<RoomUsers> wholeData;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.appbarlayouttest);
+        setContentView(R.layout.appbarlayout);
 
         /*username = (EditText) findViewById(R.id.username);
         userpassword = (EditText) findViewById(R.id.userpassword);
         usersubmit = (Button) findViewById(R.id.userbutton);*/
 
+        searchview = (SearchView) findViewById(R.id.searchview);
+
         appBarLayout = (AppBarLayout)findViewById(R.id.appbarlayout);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+
         roomDatabaseUsers = RoomDatabaseUsers.getInstance(this);
         roomDAO = roomDatabaseUsers.getDAO();
+
+        wholeData = roomDAO.getAllUsers();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
 
@@ -104,6 +115,18 @@ public class RoomActivity extends AppCompatActivity implements RoomAdapterListen
             }
         });
 
+        searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                searchLogic(s);
+                return true;
+            }
+        });
 
         /*final LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         new Handler().postDelayed(new Runnable() {
@@ -133,9 +156,19 @@ public class RoomActivity extends AppCompatActivity implements RoomAdapterListen
         });*/
     }
 
-    private void fetchAll() {
-        List<RoomUsers> wholeData = roomDAO.getAllUsers();
+    private void searchLogic(String s) {
+        List<RoomUsers> searchList = new ArrayList<>();
 
+        for (RoomUsers roomUsers : wholeData) {
+            if (roomUsers.getUserName().contains(s)) {
+                searchList.add(roomUsers);
+
+            }
+        }
+        roomAdapter.addToSearchList(searchList);
+    }
+
+    private void fetchAll() {
         for (int i = 0; i < wholeData.size(); i++) {
             RoomUsers roomUsers = wholeData.get(i);
             roomAdapter.addDetailsInList(roomUsers);
@@ -177,5 +210,14 @@ public class RoomActivity extends AppCompatActivity implements RoomAdapterListen
     public void OnDelete(int id, int position) {
         roomDAO.delete(id);
         roomAdapter.removeFromList(position);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!searchview.isIconified()) {
+            searchview.setIconified(true);
+            return;
+        }
+        super.onBackPressed();
     }
 }
